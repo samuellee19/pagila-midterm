@@ -6,3 +6,12 @@
  * HINT:
  * This requires joining from the category table down to the actor table.
  */
+
+SELECT DISTINCT ON (first_name || ' ' || last_name) first_name, last_name FROM actor 
+    INNER JOIN film_actor ON actor.actor_id = film_actor.actor_id 
+    INNER JOIN film ON film_actor.film_id = film.film_id 
+    INNER JOIN film_category ON film.film_id = film_category.film_id 
+    INNER JOIN category ON film_category.category_id = category.category_id 
+    WHERE category.name = 'Children'
+            AND category.name != 'Horror'
+    ORDER BY ("first_name" || ' ' || "last_name") ASC;
